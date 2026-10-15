@@ -1,0 +1,5 @@
+import "Game.ow"
+
+main:
+  set game: new Game()
+  call: ui_run("game.view", "Tic-Tac-Toe — OOP")

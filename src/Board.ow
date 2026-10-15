@@ -1,0 +1,29 @@
+class Board:
+  field cells
+  fn new():
+    set this.cells: array(9, 0)
+  fn get_at(i):
+    return: this.cells[i]
+  fn put_at(i, v):
+    set cells: this.cells
+    set cells[i]: v
+  fn three(a, b, c):
+    set va: this.get_at(a)
+    if: va == 0
+      return: 0
+    if: this.get_at(b) != va
+      return: 0
+    if: this.get_at(c) != va
+      return: 0
+    return: va
+  fn winner():
+    set w: this.three(0, 1, 2)
+    if: w != 0
+      return: w
+    set w: this.three(3, 4, 5)
+    if: w != 0
+      return: w
+    set w: this.three(6, 7, 8)
+    if: w != 0
+      return: w
+    return: 0

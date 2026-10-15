@@ -1,0 +1,43 @@
+import "Board.ow"
+import "helpers.ow"
+
+class Game:
+  field board
+  field player
+  field winner_val
+  field status
+
+  fn new():
+    call: this.reset()
+
+  fn reset():
+    set this.board: new Board()
+    set this.player: 1
+    set this.winner_val: 0
+    set this.status: "X's turn"
+
+  fn move(i):
+    if: this.winner_val != 0
+      return: 0
+    if: this.board.get_at(i) != 0
+      return: 0
+    call: this.board.put_at(i, this.player)
+    set w int: this.board.winner()
+    if: w != 0
+      set this.winner_val: w
+      set this.status: mark(w) + " wins!"
+    else:
+      set this.player: other(this.player)
+      set this.status: mark(this.player) + "'s turn"
+    return: 0
+
+  fn cells():
+    set btns: array(9, 0)
+    set i int: 0
+    while: i < 9
+      set btns[i]: ui_button(mark(this.board.get_at(i)), "game.move", i)
+      set i: i + 1
+    return: btns
+
+  fn view():
+    return: ui_col([ui_heading("Tic-Tac-Toe"), ui_text(this.status), ui_grid(3, this.cells()), ui_button("New game", "game.reset")])

@@ -1,0 +1,13 @@
+fn mark(v):
+  switch: v
+    case 1:
+      return: "X"
+    case 2:
+      return: "O"
+    default:
+      return: "."
+fn other(p):
+  if: p == 1
+    return: 2
+  else:
+    return: 1
